@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <title>{% block title %}Seriály{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <header class="jumbotron-fluid p-5 text-center bg-danger">
+            <h1 class="text-white text-uppercase display-3">Databáze seriálů</h1>
+        </header>
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a class="navbar-brand text-danger" href="#">SERIÁLY</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Úvodní stránka</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'series' %}">Seriály</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'genres' %}">Žánry</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'directors' %}">Režiséři</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="sidebar-nav" style="list-style-type:none;">
+                {% if user.is_authenticated %}
+                <li class="text-white">Uživatel: {{ user.get_username }}</li>
+                <li><a class="btn bg-danger" href="{% url 'logout'%}?next={{request.path}}">Odhlásit se</a></li>
+                {% else %}
+                <li><a class="btn bg-warning" href="{% url 'login'%}?next={{request.path}}">Přihlásit se</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="container-fluid">
+            {% block content %}{% endblock %}
+            {% block pagination %}
+                {% if is_paginated %}
+                    <div class="pagination">
+                        <span class="page-links">
+                            {% if page_obj.has_previous %}
+                                <a class="btn bg-primary btn-sm" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Předchozí</a>
+                            {% endif %}
+                            <span class="page-current">
+                                Strana {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
+                            </span>
+                            {% if page_obj.has_next %}
+                                <a class="btn bg-primary btn-sm" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Další</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+        <footer class="container-fluid text-center">
+            <hr>
+            <p>&copy; 2021 - Erik Gargoš</p>
+        </footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mt-3 mb-3 bg-success p-3">
+    <div class="col-sm-12"> 
+        <h2 class="text-center display-4">Nejlépe hodnocené seriály</h2>
+    </div> 
+</div> 
+<div class="row">
+    {% for serial in serials %}
+    <div class="col-sm-4"> 
+        <div class="card"> 
+            {% if serial.poster %}
+            <img class="card-img-top" src="{{ serial.poster.url }}" alt="{{ serial.name }}">
+            {% endif %} 
+            <div class="card-body"> 
+                <h4 class="card-title">{{ serial.name }}</h4>
+                <p class="card-text"><strong>Žánry:</strong>
+                {% for genre in serials.genre.all %}{{ genre.name }}{% endfor %}
+                </p>
+                <p class="card-text"><strong>Režisér:</strong>
+                {% for director in serials.director.all %}{{ director }}{% endfor %}
+                </p>
+                <p><strong>Hodnocení:</strong> {{ serial.rate }}</p>
+            </div> 
+        </div> 
+    </div> 
+    {% endfor %} 
+</div> 
+<div class="row"> 
+    <div class="col-sm-12"> 
+        <strong>Celkový počet seriálů:</strong> {{ num_series }}
+    </div> 
+</div> 
+{% endblock %} 

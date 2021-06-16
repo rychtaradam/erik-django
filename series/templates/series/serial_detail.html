@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="display-4 text-center">{{ serial.name }}</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Režisér:</th>
+                    <th>Žánr:</th>
+                    <th>Počet sérií:</th>
+                    <th>Datum vydání:</th>
+                    <th>Hodnocení:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for director in serial.director.all %}
+                    <td>{{ director }}</td>
+                    {% endfor %}
+                    <td>{{ serial.genre.all|join:", " }}</td>
+                    <td>{{ serial.series }}</td>
+                    <td>{{ serial.date }}</td>
+                    <td>{{ serial.rate }} <i class="bi bi-star-fill"></i></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <a class="btn bg-success" href="{% url 'serial-update'  book.id %}">Upravit</a>
+            <a class="btn bg-danger" href="{% url 'serial-delete'  book.id %}">Smazat</a>
+        </div>
+    </div>
+
+{% endblock %}

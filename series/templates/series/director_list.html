@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center display-4">Seznam režisérů v databázi</h1>
+        {% if director_list %}
+            <table class="table">
+                <tbody>
+                    {% for director in director_list %}
+                        <tr>
+                            <th class="text-warning">{{ director }}</th>
+                            <td class="text-center"><a class="btn bg-danger btn-sm" href="{% url 'director-delete' director.id %}">Smazat</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn bg-warning"  href="{% url 'director-create' %}">Přidat režiséra</a>
+        {% endif %}
+    </div>
+{% endblock %}

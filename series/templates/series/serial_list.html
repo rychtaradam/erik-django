@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center display-4">Seznam seriálů</h1>
+        {% if serial_list %}
+            <table class="table">
+                <tbody>
+                {% for serial in serial_list %}
+                    {% for director in serial.director.all %}
+                    <tr>
+                        <th><a class="btn text-warning" href="{{ serial.get_absolute_url }}"><b>{{ serial.name }}</b></a></th>
+                        <td>{{ director }}</td>
+                    {% endfor %}
+                {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn bg-warning"  href="{% url 'serial-create' %}">Přidat seriál</a>
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center display-4">Vytvoření nového seriálu</h1>
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            <table>
+            {{ form|crispy }}
+            </table>
+            <input class="btn bg-success" type="submit" value="Uložit">
+        </form>
+    </div>
+{% endblock %}

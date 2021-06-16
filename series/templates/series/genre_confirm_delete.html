@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="text-center container">
+        <h1 class="display-4">Smazat žánr</h1>
+
+        <p >Jste si jisti, že chcete smazat žánr: <b>{{ genre }}</b> ?</p>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input class="btn bg-danger" type="submit" value="Smazat">
+        </form>
+    </div>
+{% endblock %}

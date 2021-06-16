@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container text-center">
+        <p class="text-center display-4">Přihlášení</p>
+        {% if form.errors %}
+            <p class="text-danger"><b>Uživatelské jméno a heslo se neshodují. Zkuste to znovu.</b></p>
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+                <table class="table table-borderless">
+                    <tr>
+                        <td><b>{{ form.username.label_tag }}</b></td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>{{ form.password.label_tag }}</b></td>
+                        <td>{{ form.password }}</td>
+                    </tr>
+                </table>
+                <input class="btn bg-success" type="submit" value="Přihlásit se" />
+                <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+        <p> </p>
+        <p><a class="btn bg-primary" href="{% url 'password_reset' %}">Zapomenuté heslo?</a></p>
+    </div>
+
+
+{% endblock %}
