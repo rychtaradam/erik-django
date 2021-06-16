@@ -48,7 +48,7 @@ class SerialCreate(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     permission_required = 'series.can_add_serials'
 
     def get_success_url(self):
-        return reverse_lazy('serials')
+        return reverse_lazy('series')
 
 
 class SerialUpdate(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
@@ -59,7 +59,7 @@ class SerialUpdate(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
 
 class SerialDelete(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Serial
-    success_url = reverse_lazy('serials')
+    success_url = reverse_lazy('series')
     permission_required = 'series.can_delete_serials'
 
 
