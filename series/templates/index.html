@@ -9,17 +9,14 @@
 <div class="row">
     {% for serial in serials %}
     <div class="col-sm-4"> 
-        <div class="card"> 
-            {% if serial.poster %}
-            <img class="card-img-top" src="{{ serial.poster.url }}" alt="{{ serial.name }}">
-            {% endif %} 
+        <div class="card">
             <div class="card-body"> 
                 <h4 class="card-title">{{ serial.name }}</h4>
                 <p class="card-text"><strong>Žánry:</strong>
-                {% for genre in serials.genre.all %}{{ genre.name }}{% endfor %}
+                {% for genre in serial.genre.all %}{{ genre.name }}{% endfor %}
                 </p>
                 <p class="card-text"><strong>Režisér:</strong>
-                {% for director in serials.director.all %}{{ director }}{% endfor %}
+                {% for director in serial.director.all %}{{ director }}{% endfor %}
                 </p>
                 <p><strong>Hodnocení:</strong> {{ serial.rate }}</p>
             </div> 
